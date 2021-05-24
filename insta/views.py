@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from .models import Image, Profile, Comment, Likes, Followers
-from .forms import FormSignUp,FormLogin,ProfileForm
+from .forms import FormSignUp,FormLogin,ProfileForm,FormImage
 
 
 from django.conf import settings
@@ -80,6 +80,22 @@ def updatedprofile(request, username):
         return redirect('updatedprofile', username=request.user.username)
     return render(request, 'viewprofile.html', {"profile":profile, "images":images})
 
+def uploadimage(request):
+    '''
+    view function to post images
+    '''
+    user = User.objects.exclude(id=request.user.id)
+    current_user = request.user
+    if request.method=='POST':
+        form = FormImage(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            #image.user = request.user.profile
+            image.save()
+            return redirect(index)
+    else:
+        form = FormImage()
+    return render(request, 'uploadimage.html',{"form":form})
 
 def login(request):
     '''

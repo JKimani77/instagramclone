@@ -23,3 +23,9 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exlcude = ['follower_user', 'following_user']
         fields = ('about', 'profile_picture', 'user')
+
+class FormImage(forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = []
+        fields = ('image_name', 'image_caption', 'image','profile')
