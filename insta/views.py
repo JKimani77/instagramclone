@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from .models import Image, Profile, Comment, Likes, Followers
-#from .forms import FormSignUp, FormLogin, ProfileForm, FormImage, CommentForm 
+from .forms import FormSignUp,FormLogin
 
 
 from django.conf import settings
@@ -27,3 +27,28 @@ def logout_view(request):
     logout(request)
 
     return redirect(index)
+
+
+
+def signingup(request):
+    if request.method == 'POST':
+        form = FormSignUp(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.is_active = False
+            user.save()
+            current = get_current_site(request)
+            subject = 'Activate your iNsTa'
+            message = render_to_string('email/email.html', {
+                'user': user, 
+                'domain': current.domain, 
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user)
+                })
+            
+            user.email_user(subject, message)
+            return 'We have just sent you an email'
+        else:
+            form = FormSignUp()
+        return render(request, 'registration/registration_form.html', {'form': form})
+
