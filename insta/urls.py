@@ -1,10 +1,10 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from clone import views 
+from insta import views 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.index, name='home'),
     #
     #
     #

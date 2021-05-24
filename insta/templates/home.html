@@ -1,0 +1,43 @@
+{%extends 'index.html'%}
+{% load bootstrap4 %}
+{%block content %}
+
+<div class="container">
+  <br> <br>
+    <div class="jumbotron">
+        <div class="header">
+           <h1 style="color: coral; text-align: center;">POSTS</h1>
+           
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for pic in images %}
+            <div class="card " style=" margin-right: auto;">
+                
+            <br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+            <h5 style="color: coral;">{{ pic.image_name }}</h5>
+              <div class="actualimage">
+                  <p style="color: coral;"> {{ pic.image_caption }}</p>
+            <br>
+                  <img src="{{pic.image.url}}" class="img-responsive" alt="image" width="600px" >
+            <br>
+            <h6 style="color: coral;">Posted By: {{pic.profile.user}}</h6>
+            </div>
+              <a href="image/1/"class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-heart"></span> Likes
+              </a>
+              <a href="comment/1/" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-align-center"></span> Comments
+              </a>
+              <a href="image/1/" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-camera"></span> Check It Out
+              </a>
+             
+            </div> 
+            {%  endfor %}   
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
