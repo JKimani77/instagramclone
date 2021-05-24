@@ -97,6 +97,13 @@ def uploadimage(request):
         form = FormImage()
     return render(request, 'uploadimage.html',{"form":form})
 
+def search(request):
+    if 'user' in request.GET and request.GET['user']:
+        search_user = request.GET.get('user')
+        username_searched = Profile.search_by_profile(search_user)
+        message = f'{search_user}'
+        return render(request, 'search.html',{"users":username_searched, "message":message})
+
 def login(request):
     '''
     view function to display login form
