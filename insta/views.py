@@ -66,6 +66,21 @@ def profile(request):
     return render(request, 'profile.html',{"form":form})
 
 
+@login_required(login_url='accounts/login')
+def updatedprofile(request, username):
+    
+    '''
+    funcion to display user profile
+    '''
+    userr = get_object_or_404(User, username=username)
+    profile = Profile.objects.filter(user_id=id).all()
+    images = Image.objects.filter(profile=profile).all()
+    user_posts = userr.profile.posts.all()
+    if request.user == userr:
+        return redirect('updatedprofile', username=request.user.username)
+    return render(request, 'viewprofile.html', {"profile":profile, "images":images})
+
+
 def login(request):
     '''
     view function to display login form
