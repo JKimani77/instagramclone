@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from .models import Image, Profile, Comment, Likes, Followers
-from .forms import FormSignUp,FormLogin
+from .forms import FormSignUp,FormLogin,ProfileForm
 
 
 from django.conf import settings
@@ -21,33 +21,6 @@ import os
 def index(request):
     images = Image.get_images()
     return render(request, 'home.html', {"images":images})
-
-# Create your views here.
-def logout_view(request):
-    logout(request)
-
-    return redirect(index)
-
-def login(request):
-    '''
-    view function to display login form
-    '''
-    if request.method=='POST':
-        form = FormLogin(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['Username']
-            password = form.cleaned_data['Password']
-            user = authenticate(username,password)
-            if user.is_active:
-                login(request,user)
-                print("You have logged into your account")
-                return redirect(index)
-            else:
-                return HttpResponse("Your account is inactive")
-            
-    else:
-        form=FormLogin()
-    return render(request, 'registration/login.html',{"form":form})
 
 def signingup(request):
     if request.method == 'POST':
@@ -71,3 +44,51 @@ def signingup(request):
             form = FormSignUp()
         return render(request, 'registration/registration_form.html', {'form': form})
 
+
+@login_required(login_url='accounts/login')
+def profile(request):
+    #print(request)
+    '''
+    function to create user profile 
+    '''
+    current_user = request.user
+    import pdb; pdb.set_trace();
+    
+    if request.method=="POST":
+        form = ProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile =form.save(commit=False)
+            profile.user = current_user 
+            profile.save()
+            return redirect(updatedprofile)
+    else:
+        form = ProfileForm()
+    return render(request, 'profile.html',{"form":form})
+
+
+def login(request):
+    '''
+    view function to display login form
+    '''
+    if request.method=='POST':
+        form = FormLogin(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['Username']
+            password = form.cleaned_data['Password']
+            user = authenticate(username,password)
+            if user.is_active:
+                login(request,user)
+                print("You have logged into your account")
+                return redirect(index)
+            else:
+                return HttpResponse("Your account is inactive")
+            
+    else:
+        form=FormLogin()
+    return render(request, 'registration/login.html',{"form":form})
+
+
+def logout_view(request):
+    logout(request)
+
+    return redirect(index)

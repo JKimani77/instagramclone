@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-#from .models import Image, Profile, Comment
+from .models import Image, Profile, Comment
 
 class FormSignUp(UserCreationForm):
     email = forms.EmailField(max_length=100, help_text='Required. Kindly use a valid email address')
@@ -17,3 +17,9 @@ class FormLogin(forms.ModelForm):
     class Meta:
         model = User 
         fields = ('username', 'password')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exlcude = ['follower_user', 'following_user']
+        fields = ('about', 'profile_picture', 'user')
