@@ -29,3 +29,9 @@ class FormImage(forms.ModelForm):
         model = Image
         exclude = []
         fields = ('image_name', 'image_caption', 'image','profile')
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['image_id', 'user_id']
+        fields = ('comment',)

@@ -10,5 +10,6 @@ urlpatterns = [
     path('post/image/', views.uploadimage, name = 'uploadimage'),
     path('search/', views.search, name='searchbyusername'),
     path('image/(?P<img_id>\d+)/', views.specific, name='single-image'),
+    path('comment/(?P<id>\d+)/', views.comment, name='comment'),
     path('logout/', views.logout_view, name='logout'),
 ]
