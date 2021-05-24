@@ -28,7 +28,26 @@ def logout_view(request):
 
     return redirect(index)
 
-
+def login(request):
+    '''
+    view function to display login form
+    '''
+    if request.method=='POST':
+        form = FormLogin(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['Username']
+            password = form.cleaned_data['Password']
+            user = authenticate(username,password)
+            if user.is_active:
+                login(request,user)
+                print("You have logged into your account")
+                return redirect(index)
+            else:
+                return HttpResponse("Your account is inactive")
+            
+    else:
+        form=FormLogin()
+    return render(request, 'registration/login.html',{"form":form})
 
 def signingup(request):
     if request.method == 'POST':
