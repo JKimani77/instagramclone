@@ -104,6 +104,15 @@ def search(request):
         message = f'{search_user}'
         return render(request, 'search.html',{"users":username_searched, "message":message})
 
+def specific(request, img_id):
+    '''
+    view function to show details of a single image
+    '''
+    image = Image.objects.get(pk=img_id) 
+    # likes = image.like_set.all().count()
+    comments = Comment.objects.filter(image_id=img_id).all()
+    return render(request,'singleimage.html',{"image":image, "comments":comments, "likes":likes})
+
 def login(request):
     '''
     view function to display login form

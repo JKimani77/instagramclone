@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/<slug:username>/', views.updatedprofile, name='dipslay-profile'),
     path('post/image/', views.uploadimage, name = 'uploadimage'),
     path('search/', views.search, name='searchbyusername'),
+    path('image/(?P<img_id>\d+)/', views.specific, name='single-image'),
     path('logout/', views.logout_view, name='logout'),
 ]
