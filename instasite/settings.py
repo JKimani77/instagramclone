@@ -101,6 +101,7 @@ if config('MODE') == "dev":
         }
 }
 #production
+#change mode in env file to prod
 else:
     DATABASES = {
         'default': dj_database_url.config(
