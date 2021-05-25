@@ -10,6 +10,8 @@ This a web application built using Python and Django. The app is basically a clo
 
 Joshua Kimani
 
+## Link to site
+https://eansta.herokuapp.com/
 
 # Installation
 
