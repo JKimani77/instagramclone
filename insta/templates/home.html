@@ -1,17 +1,23 @@
 {%extends 'index.html'%}
 {% load bootstrap4 %}
-{%block content %}
+{% block content %}
 
 <div class="container">
   <br> <br>
     <div class="jumbotron">
         <div class="header">
-           <h1 style="color: coral; text-align: center;">POSTS</h1>
-           
+           <h1 style="color: coral; text-align: center; margin-top:18%;">EXPLORE</h1>
+           <p style="text-align: center; color: white; font-size: 80%;"> ________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+        
+        </p>
+        
         </div>
     </div>
+
+    <br>
+    <br>
+
     <div class="container">
-        <div class="row">
             {% for pic in images %}
             <div class="card " style=" margin-right: auto;">
                 
@@ -36,7 +42,7 @@
              
             </div> 
             {%  endfor %}   
-        </div>
+        
     </div>
 </div>
     

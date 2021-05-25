@@ -11,5 +11,9 @@ urlpatterns = [
     path('search/', views.search, name='searchbyusername'),
     path('image/(?P<img_id>\d+)/', views.specific, name='single-image'),
     path('comment/(?P<id>\d+)/', views.comment, name='comment'),
+    path('login/', views.login, name='login'),
     path('logout/', views.logout_view, name='logout'),
 ]
+
+if settings.DEBUG:
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

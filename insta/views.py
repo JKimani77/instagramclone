@@ -19,8 +19,8 @@ import os
 
 # Create your views here.
 def index(request):
-    images = Image.get_images()
-    return render(request, 'home.html', {"images":images})
+    imagess = Image.get_images()
+    return render(request, 'home.html', {"images":imagess})
 
 def signingup(request):
     if request.method == 'POST':
@@ -42,10 +42,10 @@ def signingup(request):
             return 'We have just sent you an email'
         else:
             form = FormSignUp()
-        return render(request, 'registration/registration_form.html', {'form': form})
+        return render(request, 'django_registration/registration_form.html', {'form': form})
 
 
-@login_required(login_url='accounts/login')
+@login_required(login_url='/login')
 def profile(request):
     #print(request)
     '''
@@ -66,7 +66,7 @@ def profile(request):
     return render(request, 'profile.html',{"form":form})
 
 
-@login_required(login_url='accounts/login')
+@login_required(login_url='/login')
 def updatedprofile(request, username):
     
     '''
@@ -80,6 +80,7 @@ def updatedprofile(request, username):
         return redirect('updatedprofile', username=request.user.username)
     return render(request, 'viewprofile.html', {"profile":profile, "images":images})
 
+@login_required(login_url='/login')
 def uploadimage(request):
     '''
     view function to post images
@@ -156,7 +157,7 @@ def login(request):
                 return HttpResponse("Your account is inactive")
             
     else:
-        form=FormLogin()
+        form = FormLogin()
     return render(request, 'registration/login.html',{"form":form})
 
 
