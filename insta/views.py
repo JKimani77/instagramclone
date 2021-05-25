@@ -52,7 +52,6 @@ def profile(request):
     function to create user profile 
     '''
     current_user = request.user
-    import pdb; pdb.set_trace();
     
     if request.method=="POST":
         form = ProfileForm(request.POST,request.FILES)
@@ -72,13 +71,15 @@ def updatedprofile(request, username):
     '''
     funcion to display user profile
     '''
-    userr = get_object_or_404(User, username=username)
-    profile = Profile.objects.filter(user_id=id).all()
-    images = Image.objects.filter(profile=profile).all()
-    user_posts = userr.profile.posts.all()
-    if request.user == userr:
-        return redirect('updatedprofile', username=request.user.username)
-    return render(request, 'viewprofile.html', {"profile":profile, "images":images})
+    current_user = request.user
+    user_id = current_user.id
+    #userr = get_object_or_404(User, username=username)
+    profile = Profile.objects.filter(id=user_id).all()
+    #images = Image.objects.filter(profile_id=current_user.profile.id).all()
+    #user_posts = userr.profile.posts.all()
+    #if request.user == userr:
+        #return redirect('updatedprofile', username=request.user.username)
+    return render(request, 'viewprofile.html', {"profile":profile})
 
 @login_required(login_url='/login')
 def uploadimage(request):
