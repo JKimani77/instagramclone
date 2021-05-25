@@ -30,6 +30,7 @@ def signingup(request):
             user.is_active = False
             user.save()
             current = get_current_site(request)
+            '''
             subject = 'Activate your iNsTa'
             message = render_to_string('email/email.html', {
                 'user': user, 
@@ -40,6 +41,7 @@ def signingup(request):
             
             user.email_user(subject, message)
             return 'We have just sent you an email'
+            '''
         else:
             form = FormSignUp()
         return render(request, 'django_registration/registration_form.html', {'form': form})
